@@ -408,7 +408,7 @@ class Config(object):
         self.optimizer.zero_grad()
         loss = self.trainModel()
         loss.backward()
-        torch.nn.utils.clip_grad_norm_(self.trainModel.parameters(), 0.5)
+        #torch.nn.utils.clip_grad_norm_(self.trainModel.parameters(), 0.5)
         self.optimizer.step()
         
         return loss.item()
@@ -449,12 +449,14 @@ class Config(object):
         best_model = None
         bad_counts = 0
         training_range = tqdm(range(self.train_times))
+        scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, 25, 0.05, -1)
         for epoch in training_range:
             res = 0.0
             for batch in range(self.nbatches):
                 self.sampling()
                 loss = self.train_one_step()
                 res += loss
+            scheduler.step()
             training_range.set_description("Epoch %d | loss: %f" % (epoch, res))
             # print("Epoch %d | loss: %f" % (epoch, res))
             if (epoch + 1) % self.save_steps == 0:

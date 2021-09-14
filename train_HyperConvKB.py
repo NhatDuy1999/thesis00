@@ -11,7 +11,7 @@ parser.add_argument("--learning_rate", default=0.0001, type=float, help="Learnin
 parser.add_argument("--nbatches", default=100, type=int, help="Number of batches")
 parser.add_argument("--num_epochs", default=300, type=int, help="Number of training epochs")
 parser.add_argument("--model_name", default='WN18RR', help="")
-parser.add_argument('--neg_num', default=1, type=int, help='')
+parser.add_argument('--neg_num', default=10, type=int, help='')
 parser.add_argument('--hidden_size', type=int, default=100, help='')
 parser.add_argument('--num_of_filters', type=int, default=64, help='')
 parser.add_argument('--dropout', type=float, default=0.5, help='')
